@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title> Rentalku — Rental Mobil Terjangkau & Terpercaya</title>
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Montserrat:wght@600;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      /* Brand tokens */
+      --bg: #ffffff;
+      --ink: #0b0f14;
+      --muted: #5b6673;
+      --soft: #f3f5f7;        /* abu muda lembut untuk cards */
+      --line: #e7ebf0;
+      --blue: #4da3ff;        /* aksen biru muda */
+      --blue-100:#eaf4ff;     /* latar biru muda */
+      --blue-600:#1876f2;     /* hover/aksi */
+      --shadow: 0 8px 24px rgba(15,23,42,.08);
+      --radius: 16px;
+      --radius-lg: 22px;
+      --maxw: 1200px;
+    }
+
+    /* Reset ringan */
+    *{box-sizing:border-box}
+    html,body{margin:0;padding:0;background:var(--bg);color:var(--ink)}
+    img{max-width:100%;display:block}
+    a{color:inherit;text-decoration:none}
+
+    /* Tipografi */
+    body{
+      font-family: 'Open Sans', system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      line-height:1.6;
+    }
+    .h1,.h2,.h3{
+      font-family:'Montserrat', 'Poppins', Arial, sans-serif;
+      letter-spacing:.2px;
+      color:var(--ink);
+    }
+    .h1{font-size:clamp(28px, 4vw, 44px);font-weight:700}
+    .h2{font-size:clamp(22px, 3vw, 32px);font-weight:700}
+    .h3{font-size:clamp(18px, 2.2vw, 22px);font-weight:600}
+
+    /* Header / Nav */
+    header{
+      position:sticky;top:0;z-index:40;background:rgba(255,255,255,.85);
+      backdrop-filter:saturate(180%) blur(14px); border-bottom:1px solid var(--line);
+    }
+    .nav{
+      max-width:var(--maxw); margin:auto; display:flex; align-items:center; justify-content:space-between;
+      padding:12px 20px;
+    }
+    .brand{
+      display:flex; align-items:center; gap:10px; font-weight:700;
+      font-family:'Poppins', Arial, sans-serif;
+    }
+    .brand-badge{
+      height:38px;width:38px; border-radius:12px; background:linear-gradient(145deg,var(--blue-100),#d9ecff);
+      display:grid; place-items:center; border:1px solid var(--line); box-shadow:var(--shadow);
+      font-weight:700; color:#1b66d1;
+    }
+    .nav a{
+      font-weight:600; color:#1b1f24; opacity:.9; padding:10px 12px; border-radius:10px;
+    }
+    .nav a:hover{background:var(--blue-100)}
+    .cta{
+      background:var(--blue); color:#fff; padding:10px 16px; border-radius:12px; font-weight:700;
+      box-shadow:0 6px 18px rgba(24,118,242,.18); border:1px solid #cfe6ff;
+    }
+    .cta:hover{background:var(--blue-600)}
+
+    /* Hero */
+    .hero{
+      background:linear-gradient(180deg, var(--blue-100), #fff 65%);
+      border-bottom:1px solid var(--line);
+    }
+    .hero-inner{
+      max-width:var(--maxw); margin:auto; padding:56px 20px; display:grid; grid-template-columns:1.1fr .9fr; gap:28px;
+    }
+    .hero-kicker{color:var(--muted); font-weight:600; letter-spacing:.6px; text-transform:uppercase}
+    .hero-sub{color:#2a3441; font-size:clamp(14px, 2vw, 18px); max-width:54ch}
+    .hero-card{
+      background:#fff; border:1px solid var(--line); border-radius:var(--radius-lg); padding:18px; box-shadow:var(--shadow);
+    }
+    .hero-img{
+      aspect-ratio: 16/9; border-radius:14px; overflow:hidden; background:#fff;
+      display:grid; place-items:center; border:1px solid var(--line);
+    }
+    .hero-img .placeholder{
+      width:100%; height:100%;
+      background:linear-gradient(135deg,#ffffff 0%, #eaf4ff 100%);
+      display:grid; place-items:center; color:#7aaef5; font-weight:700; letter-spacing:.5px;
+    }
+
+    /* Sections */
+    .section{max-width:var(--maxw); margin:0 auto; padding:36px 20px}
+    .grid{
+      display:grid; gap:20px;
+    }
+    @media(min-width:768px){ .grid.cols-3{grid-template-columns:repeat(3,1fr)} .grid.cols-4{grid-template-columns:repeat(4,1fr)} }
+
+    /* Feature Cards */
+    .feature{
+      background:#fff; border:1px solid var(--line); border-radius:16px; padding:18px; box-shadow:var(--shadow);
+      display:flex; gap:14px; align-items:flex-start;
+    }
+    .feature .dot{
+      min-width:36px; min-height:36px; border-radius:10px; background:var(--blue-100); border:1px solid var(--line);
+      display:grid; place-items:center; font-weight:700; color:#1b66d1;
+    }
+
+    /* Product Card */
+    .card{
+      background:#fff; border:1px solid var(--line); border-radius:18px; overflow:hidden; box-shadow:var(--shadow);
+      display:flex; flex-direction:column;
+      transition:transform .25s ease, box-shadow .25s ease;
+    }
+    .card:hover{ transform:translateY(-6px); box-shadow:0 14px 32px rgba(15,23,42,.14) }
+    .card-img{
+      aspect-ratio: 16/10; background:linear-gradient(135deg,#ffffff,#eaf4ff);
+      border-bottom:1px solid var(--line); display:grid; place-items:center; position:relative;
+    }
+    .badge{
+      position:absolute; top:12px; left:12px; background:#101828; color:#fff; font-size:12px; padding:6px 10px; border-radius:999px; opacity:.9;
+    }
+    .card-body{ padding:16px }
+    .price{font-weight:700; color:#101828}
+    .muted{color:var(--muted)}
+    .btn{
+      display:inline-grid; place-items:center; padding:10px 14px; border-radius:12px; border:1px solid var(--line);
+      font-weight:700; background:#fff; transition:all .2s ease;
+    }
+    .btn:hover{ background:var(--blue-100); border-color:#cbe2ff }
+    .btn-primary{ background:var(--blue); color:#fff; border-color:#cfe6ff }
+    .btn-primary:hover{ background:var(--blue-600) }
+
+    /* Filters */
+    .filters{
+      display:flex; gap:10px; flex-wrap:wrap; align-items:center; margin:10px 0 18px;
+    }
+    .chip{
+      padding:8px 12px; border:1px solid var(--line); border-radius:999px; background:#fff; color:#0b1220; font-weight:600;
+      cursor:pointer;
+    }
+    .chip.active, .chip:hover{ background:var(--blue-100); border-color:#cfe1ff }
+
+    /* Detail (drawer) */
+    .drawer{
+      position:fixed; inset:0; background:rgba(10,18,30,.42); display:none; align-items:flex-end; z-index:60;
+    }
+    .drawer.open{display:flex}
+    .drawer-panel{
+      width:100%; max-height:92vh; background:#fff; border-top-left-radius:22px; border-top-right-radius:22px;
+      border:1px solid var(--line); box-shadow:0 -10px 30px rgba(15,23,42,.12); overflow:auto;
+    }
+    @media(min-width:900px){ .drawer-panel{ max-width:var(--maxw); margin:24px auto; border-radius:22px } }
+    .drawer-head{ display:flex; justify-content:space-between; align-items:center; padding:16px 18px; border-bottom:1px solid var(--line)}
+    .close{font-size:18px; padding:8px 12px; border-radius:10px; border:1px solid var(--line); cursor:pointer; background:#fff}
+    .detail{
+      display:grid; gap:22px; grid-template-columns:1fr; padding:18px;
+    }
+    @media(min-width:960px){ .detail{grid-template-columns:1.1fr .9fr; padding:22px 24px 28px} }
+
+    /* Carousel */
+    .carousel{
+      position:relative; border:1px solid var(--line); border-radius:18px; overflow:hidden; background:var(--blue-100);
+    }
+    .carousel-track{ display:flex; transition:transform .4s ease }
+    .carousel-slide{ min-width:100%; aspect-ratio:16/10; display:grid; place-items:center }
+    .car-ghost{
+      width:100%; height:100%; background:linear-gradient(135deg,#ffffff,#eaf4ff);
+      display:grid; place-items:center; color:#7aaef5; font-weight:700;
+    }
+    .carousel-nav{
+      position:absolute; inset:0; display:flex; align-items:center; justify-content:space-between; padding:0 8px;
+    }
+    .round{
+      height:38px; width:38px; border-radius:999px; background:rgba(255,255,255,.9); border:1px solid var(--line);
+      display:grid; place-items:center; cursor:pointer; font-weight:800;
+    }
+
+    /* About / footer */
+    .about{
+      background:linear-gradient(180deg,#fff, var(--blue-100));
+      border-top:1px solid var(--line); border-bottom:1px solid var(--line);
+      border-radius:0;
+    }
+    .footer{
+      max-width:var(--maxw); margin:0 auto; padding:24px 20px; color:#475467; display:flex; justify-content:space-between; gap:16px; flex-wrap:wrap
+    }
+    .social a{display:inline-grid; place-items:center; height:40px; width:40px; border-radius:12px; border:1px solid var(--line); margin-right:8px; background:#fff}
+    .pill{display:inline-grid; place-items:center; padding:10px 14px; background:#fff; border:1px solid var(--line); border-radius:12px}
+
+    /* Utilities */
+    .container{max-width:var(--maxw); margin:0 auto; padding:0 20px}
+    .sp-8{height:8px}.sp-12{height:12px}.sp-16{height:16px}.sp-24{height:24px}.sp-32{height:32px}
+    .center{text-align:center}
+    .hidden{display:none !important}
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header>
+    <nav class="nav">
+      <div class="brand">
+        <div class="brand-badge">SR</div>
+        <div>
+          <div style="font-weight:800; font-size:18px">Rentalku</div>
+          <div style="font-size:12px; color:var(--muted)">Rental Mobil — Tangsel</div>
+        </div>
+      </div>
+      <div class="nav-links" aria-label="Primary">
+        <a href="#home">Home</a>
+        <a href="#produk">Produk</a>
+        <a href="#tentang">Tentang Kami</a>
+        <a class="cta" href="https://wa.me/6285792278420" target="_blank" rel="noopener">Booking Sekarang</a>
+      </div>
+    </nav>
+  </header>
+
+  <!-- Hero -->
+  <section id="home" class="hero">
+    <div class="hero-inner">
+      <div>
+        <div class="hero-kicker">Sewa mobil harian & bulanan</div>
+        <div class="sp-12"></div>
+        <h1 class="h1">Rental Mobil Terjangkau &amp; Terpercaya</h1>
+        <div class="sp-12"></div>
+        <p class="hero-sub">
+          Armada terbaru dengan perawatan rutin dan proses pemesanan yang mudah. Tersedia pilihan MPV dan SUV nyaman, siap mendukung perjalanan keluarga, kebutuhan bisnis, maupun perjalanan dinas Anda.
+        </p>
+        <div class="sp-16"></div>
+        <div style="display:flex; gap:10px; flex-wrap:wrap">
+          <a class="btn-primary btn" href="#produk">Lihat Daftar Mobil</a>
+          <a class="btn" href="https://wa.me/6285792278420" target="_blank" rel="noopener">Booking Sekarang</a>
+        </div>
+        <div class="sp-24"></div>
+
+        <div class="grid cols-3">
+          <div class="feature">
+            <div class="dot">✓</div>
+            <div>
+              <div class="h3">Harga Transparan</div>
+              <div class="muted">Tanpa biaya tersembunyi. Fleksibel harian, mingguan, bulanan.</div>
+            </div>
+          </div>
+          <div class="feature">
+            <div class="dot">✓</div>
+            <div>
+              <div class="h3">Armada Terawat</div>
+              <div class="muted">Unit bersih, servis berkala, siap perjalanan jauh.</div>
+            </div>
+          </div>
+          <div class="feature">
+            <div class="dot">✓</div>
+            <div>
+              <div class="h3">Fast Response</div>
+              <div class="muted">Booking mudah via WhatsApp. Support 07.00–22.00.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="hero-card">
+        <div class="hero-img" aria-label="Foto mobil hero">
+          <!-- Ganti src di bawah dengan foto mobil putih background putih/biru muda -->
+          <!-- Contoh: <img src="assets/avanza-2024-white.jpg" alt="Toyota Avanza 2024"> -->
+          <img src="assets/avanza white.jpg" alt="Toyota Avanza 2024"></div>
+          <img src="assets/rush.png" alt="Toyota Rush"></div>
+        </div>
+        <div class="sp-12"></div>
+        <div class="muted" style="font-size:14px">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Highlight Section -->
+  <section class="section">
+    <div class="center">
+      <h2 class="h2">Pilihan Populer</h2>
+      <div class="muted">Unit favorit pelanggan untuk keluarga & perjalanan bisnis.</div>
+    </div>
+    <div class="sp-24"></div>
+
+    <div id="highlightGrid" class="grid cols-3"></div>
+  </section>
+
+  <!-- Produk -->
+  <section id="produk" class="section">
+    <div style="display:flex; justify-content:space-between; align-items:end; gap:12px; flex-wrap:wrap">
+      <div>
+        <h2 class="h2">Semua Mobil</h2>
+        <div class="muted">Filter berdasarkan merk, tipe, atau harga.</div>
+      </div>
+      <div>
+        <input id="searchInput" placeholder="Cari: Avanza, Innova, SUV…" aria-label="Pencarian"
+               style="padding:10px 12px; border:1px solid var(--line); border-radius:12px; min-width:260px; background:#fff">
+      </div>
+    </div>
+    <div class="sp-12"></div>
+
+    <div class="filters" aria-label="Filter">
+      <button class="chip active" data-filter="all">Semua</button>
+      <button class="chip" data-filter="Toyota">Toyota</button>
+      <button class="chip" data-filter="Daihatsu">Daihatsu</button>
+      <button class="chip" data-filter="Mitsubishi">Mitsubishi</button>
+      <button class="chip" data-filter="Suzuki">Suzuki</button>
+      <button class="chip" data-filter="MPV">MPV</button>
+      <button class="chip" data-filter="SUV">SUV</button>
+      <button class="chip" data-filter="<=400">≤ 400K</button>
+      <button class="chip" data-filter="<=1200">≤ 1200K</button>
+    </div>
+
+    <div id="productGrid" class="grid cols-3"></div>
+  </section>
+
+  <!-- Drawer Detail Produk -->
+  <div id="drawer" class="drawer" role="dialog" aria-modal="true" aria-label="Detail mobil">
+    <div class="drawer-panel">
+      <div class="drawer-head">
+        <div class="h3" id="detailTitle">Detail Produk</div>
+        <button class="close" id="closeDrawer" aria-label="Tutup">✕</button>
+    
+      </div>
+
+      <div class="detail">
+        <div>
+          <div class="carousel" id="carousel">
+            <div class="carousel-track" id="track">
+              <!-- Slides diisi via JS. Default ghost: -->
+              <div class="carousel-slide"><div class="car-ghost"></div></div>
+              <div class="carousel-slide"><div class="car-ghost"></div></div>
+              <div class="carousel-slide"><div class="car-ghost"></div></div>
+            </div>
+            <div class="carousel-nav">
+              <div class="round" id="prev">‹</div>
+              <div class="round" id="next">›</div>
+            </div>
+          </div>
+          <div class="sp-12"></div>
+          <div class="muted" style="font-size:14px">Geser/klik panah untuk melihat foto lain.</div>
+        </div>
+
+        <div>
+          <div class="h2" id="detailName">—</div>
+          <div class="sp-8"></div>
+          <div class="price" id="detailPrice">—</div>
+          <div class="sp-16"></div>
+          <div id="detailDesc" class="muted">
+            Kapasitas 7 penumpang, bagasi lega, AC dingin, audio lengkap. Unit terawat dan bersih.
+          </div>
+          <div class="sp-16"></div>
+
+          <div>
+            <div class="h3">Warna / Varian</div>
+            <div class="sp-8"></div>
+            <div id="detailVariants" style="display:flex; gap:8px; flex-wrap:wrap"></div>
+          </div>
+
+          <div class="sp-16"></div>
+          <div style="display:flex; gap:10px; flex-wrap:wrap">
+            <a class="btn-primary btn" id="detailBook" href="#" target="_blank" rel="noopener">Booking Sekarang</a>
+            <a class="btn" href="#produk">Kembali ke Produk</a>
+          </div>
+
+          <div class="sp-24"></div>
+          <div>
+            <div class="h3">Ulasan Pengguna</div>
+            <div class="sp-8"></div>
+            <div id="reviews" class="grid">
+              <div style="background:#fff; border:1px solid var(--line); border-radius:14px; padding:12px">
+                <strong>Rendy</strong> ★★★★☆ — “Mobil bersih, admin ramah. Booking cepat.”
+              </div>
+              <div style="background:#fff; border:1px solid var(--line); border-radius:14px; padding:12px">
+                <strong>Taufiq</strong> ★★★★★ — “Armada terbaru, irit dan nyaman. Recommended!”
+              </div>
+            </div>
+          </div>
+
+          <div class="sp-24"></div>
+          <div>
+            <div class="h3">Rekomendasi Serupa</div>
+            <div class="sp-8"></div>
+            <div id="related" class="grid cols-3"></div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Tentang Kami -->
+  <section id="tentang" class="section about">
+    <div class="container">
+      <h2 class="h2">Tentang Kami</h2>
+      <div class="sp-12"></div>
+      <p class="muted" style="max-width:70ch">
+        Rentalku hadir sebagai partner perjalanan Anda di Tangerang Selatan dan sekitarnya.
+        Kami mengutamakan kenyamanan, keamanan, dan kejujuran harga. Dengan armada MPV & SUV
+        terbaru yang terawat, kami siap menemani perjalanan keluarga, bisnis, hingga dinas harian Anda.
+      </p>
+
+      <div class="sp-24"></div>
+      <div class="grid cols-3">
+        <div class="feature">
+          <div class="dot">🏠</div>
+          <div>
+            <div class="h3">Alamat</div>
+            <div class="muted">Jl Pendidikan 2 No. 97, Pondok Aren, Tangsel</div>
+          </div>
+        </div>
+        <div class="feature">
+          <div class="dot">✉️</div>
+          <div>
+            <div class="h3">Email</div>
+            <div class="muted"><a href="mailto:halorentalku@gmail.com">halorentalku@gmail.com</a></div>
+          </div>
+        </div>
+        <div class="feature">
+          <div class="dot">💬</div>
+          <div>
+            <div class="h3">WhatsApp</div>
+            <div class="muted"><a href="https://wa.me/6285792278420" target="_blank" rel="noopener"> +62 857 9227 8420</a></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="sp-16"></div>
+      <div class="social">
+        <a aria-label="Instagram" href="https://instagram.com/rentalkuid_" target="_blank" rel="noopener">IG</a>
+        <a aria-label="TikTok" href="https://tiktok.com/@halorentalku" target="_blank" rel="noopener">TT</a>
+        <a aria-label="Google Maps" href="https://maps.app.goo.gl/XTegDLVDGW27nB6X9" target="_blank" rel="noopener">Maps</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer">
+      <div class="pill">© <span id="year"></span> Rentalku </div>
+    </div>
+  </footer>
+
+  <!-- Data & JS -->
+  <script>
+    // ====== DATA PRODUK ======
+    // Ganti "img" dengan path gambar nyata (latar putih/biru muda, kualitas tinggi).
+    const PRODUCTS = [
+      { id:'avanza-2024-g',   name:'All New Avanza',    brand:'Toyota', type:'MPV',   price:500, img:'assets/avanza white.jpg', imgs:['assets/avanza white.jpg','assets/avanza black.jpg','assets/avanza grey.png'], variants:['Putih','Silver','Hitam'] },
+      { id:'avanza-2024-v',   name:'Toyota Veloz 2024',       brand:'Toyota', type:'MPV',   price:600,  img:'assets/veloz.jpeg',   imgs:['assets/veloz.jpeg','assets/veloz 2.jpg'], variants:['Putih','Abu','Hitam'] },
+      { id:'innova-reborn',   name:'Toyota Innova Reborn',    brand:'Toyota', type:'MPV',   price:1100,  img:'assets/innova reborn.png',imgs:['assets/innova reborn.png','assets/reborn 2.jpg'], variants:['Putih','Abu','Hitam'] },
+      { id:'innova-zenix',    name:'Toyota Innova Zenix',     brand:'Toyota', type:'MPV',   price:1200,  img:'assets/innova zenix.png', imgs:['assets/innova zenix.png','assets/zenix 2.png'], variants:['Putih','Silver','Hitam'] },
+      { id:'sigra',           name:'Daihatsu Sigra',          brand:'Daihatsu', type:'MPV', price:400,  img:'assets/sigra.jpeg',         imgs:['assets/sigra.jpeg'], variants:['Putih','Silver','Hitam'] },
+      { id:'xenia',           name:'Daihatsu Xenia',          brand:'Daihatsu', type:'MPV', price:500,  img:'assets/xenia.jpeg',         imgs:['assets/xenia.jpeg','assets/xenia 2.jpg'], variants:['Putih','Abu','Hitam'] },
+      { id:'rush',            name:'Toyota Rush',             brand:'Toyota', type:'SUV',   price:600,  img:'assets/rush.png',          imgs:['assets/rush.png','assets/rush 2.png'], variants:['Putih','Hitam','Merah'] },
+      { id:'xpander',         name:'Mitsubishi Xpander',      brand:'Mitsubishi', type:'MPV',price:600, img:'assets/xpander.jpg',      imgs:['assets/xpander.jpg','assets/xpander 2b.jpg'], variants:['Putih','Abu','Hitam'] },
+      { id:'ertiga',          name:'All New Ertiga',          brand:'Suzuki', type:'MPV', price:500,  img:'assets/ertiga 1.png',        imgs:['assets/ertiga 1.png','assets/ertiga 2.jpg'], variants:['Putih','Hitam'] },
+      { id:'sigra',           name:'Daihatsu Sigra',          brand:'Daihatsu', type:'MPV', price:400,  img:'assets/sigra 1.png',        imgs:['assets/sigra 1.png','assets/sigra 2.png'], variants:['Putih','Hitam'] },
+      { id:'venturer',        name:'Toyota Innova Venturer',  brand:'Toyota', type:'MPV', price:1200,  img:'assets/venturer 1.jpg',        imgs:['assets/venturer 1.jpg','assets/venturer 2.avif'], variants:['Putih','Hitam'] },  
+      { id:'terios',          name:'Daihatsu Terios',         brand:'Daihatsu', type:'SUV', price:600,  img:'assets/terios.jpeg',        imgs:['assets/terios.jpeg','assets/terios 2.png'], variants:['Putih','Hitam'] },  
+    ];
+
+
+    // Pre-pick highlight (ambil 3 pertama)
+    const HIGHLIGHTS = ['avanza-2024-g','innova-zenix','innova-reborn'];
+
+    // ====== UTIL ======
+    const rupiah = (n) => 'Rp ' + (n*1000).toLocaleString('id-ID') + ' / 12 jam';
+       // ====== RENDER HIGHLIGHT ======
+    const highlightGrid = document.getElementById('highlightGrid');
+    function renderHighlights(){
+      highlightGrid.innerHTML = HIGHLIGHTS.map(id=>{
+        const p = PRODUCTS.find(x=>x.id===id);
+        return cardHTML(p, true);
+      }).join('');
+    }
+
+    // ====== CARD HTML ======
+    function cardHTML(p, compact=false){
+      return `
+      <article class="card" data-id="${p.id}">
+        <div class="card-img">
+          ${p.img ? `<img src="${p.img}" alt="${p.name}" onerror="this.replaceWith(phGhost())">` : `<div class="car-ghost">GANTI FOTO HQ</div>`}
+          <span class="badge">${p.brand} • ${p.type}</span>
+        </div>
+        <div class="card-body">
+          <div class="h3">${p.name}</div>
+          <div class="sp-8"></div>
+          <div class="price">${rupiah(p.price)}</div>
+          <div class="muted" style="font-size:14px; margin-top:4px">Free biaya driver</div>
+          <div class="sp-12"></div>
+          <div style="display:flex; gap:10px; flex-wrap:wrap">
+            <button class="btn" onclick="openDetail('${p.id}')">Detail</button>
+            <a class="btn-primary btn" href="https://wa.me/6285792278420?text=Halo%20Rentalku%20,%20saya%20ingin%20booking%20${encodeURIComponent(p.name)}" target="_blank" rel="noopener">Booking Sekarang</a>
+          </div>
+        </div>
+      </article>`;
+    }
+    function phGhost(){
+      const d = document.createElement('div');
+      d.className='car-ghost'; d.textContent='GANTI FOTO HQ';
+      return d;
+    }
+
+    // ====== RENDER PRODUCT GRID ======
+    const productGrid = document.getElementById('productGrid');
+    function renderProducts(list=PRODUCTS){
+      productGrid.innerHTML = list.map(p=>cardHTML(p)).join('');
+    }
+
+    // ====== FILTERS & SEARCH ======
+    const chips = Array.from(document.querySelectorAll('.chip'));
+    let activeFilter = 'all';
+    chips.forEach(ch=>{
+      ch.addEventListener('click', ()=>{
+        chips.forEach(c=>c.classList.remove('active'));
+        ch.classList.add('active');
+        activeFilter = ch.dataset.filter;
+        applyFilters();
+      });
+    });
+    const searchInput = document.getElementById('searchInput');
+    searchInput.addEventListener('input', applyFilters);
+
+    function applyFilters(){
+      let list = PRODUCTS.filter(p=>{
+        const q = searchInput.value.trim().toLowerCase();
+        const inSearch = !q || (p.name.toLowerCase().includes(q) || p.brand.toLowerCase().includes(q) || p.type.toLowerCase().includes(q));
+        let inFilter = true;
+        if(activeFilter==='Toyota' || activeFilter==='Daihatsu' || activeFilter==='Mitsubishi'){
+          inFilter = p.brand===activeFilter;
+        }else if(activeFilter==='MPV' || activeFilter==='SUV'){
+          inFilter = p.type===activeFilter;
+        }else if(activeFilter==='<=500'){
+          inFilter = p.price<=500;
+        }else if(activeFilter==='<=1200'){
+          inFilter = p.price<=1200;
+        }
+        return inSearch && inFilter;
+      });
+      renderProducts(list);
+    }
+
+    // ====== DETAIL DRAWER ======
+    const drawer = document.getElementById('drawer');
+    const closeDrawerBtn = document.getElementById('closeDrawer');
+    const detailTitle = document.getElementById('detailTitle');
+    const detailName  = document.getElementById('detailName');
+    const detailPrice = document.getElementById('detailPrice');
+    const detailDesc  = document.getElementById('detailDesc');
+    const detailVariants = document.getElementById('detailVariants');
+    const detailBook  = document.getElementById('detailBook');
+    const relatedWrap = document.getElementById('related');
+
+    // Carousel
+    const track = document.getElementById('track');
+    const prevBtn = document.getElementById('prev');
+    const nextBtn = document.getElementById('next');
+    let slideIndex = 0;
+
+    function openDetail(id){
+      const p = PRODUCTS.find(x=>x.id===id);
+      if(!p) return;
+      // title & primary
+      detailTitle.textContent = 'Detail — ' + p.name;
+      detailName.textContent  = p.name;
+      detailPrice.textContent = rupiah(p.price);
+      detailDesc.textContent  = `${p.brand} ${p.type} — kabin nyaman, AC dingin, audio lengkap, cocok untuk keluarga & bisnis.`;
+     
+      // variants
+      detailVariants.innerHTML = (p.variants||['Putih','Hitam']).map(v=>`<span class="pill">${v}</span>`).join('');
+
+      // book link
+      detailBook.href = `https://wa.me/6285792278420?text=Halo%20Rentalku%20Rent,%20saya%20ingin%20booking%20${encodeURIComponent(p.name)}`;
+
+      // carousel
+      const slides = (p.imgs && p.imgs.length ? p.imgs : [p.img]).map(src=>(
+        `<div class="carousel-slide">${
+          src ? `<img src="${src}" alt="${p.name}" onerror="this.replaceWith(phGhost())">` : `<div class="car-ghost">GANTI FOTO HQ</div>`
+        }</div>`
+      ));
+      track.innerHTML = slides.join('');
+      slideIndex = 0; updateCarousel();
+
+      // related (brand/type serupa)
+      const related = PRODUCTS.filter(x=>x.id!==p.id && (x.brand===p.brand || x.type===p.type)).slice(0,3);
+      relatedWrap.innerHTML = related.map(r=>cardHTML(r,true)).join('');
+
+      drawer.classList.add('open');
+    }
+
+    function updateCarousel(){
+      const w = track.getBoundingClientRect().width;
+      track.style.transform = `translateX(-${slideIndex * w}px)`;
+    }
+    window.addEventListener('resize', updateCarousel);
+    prevBtn.addEventListener('click', ()=>{ slideIndex = Math.max(0, slideIndex-1); updateCarousel(); });
+    nextBtn.addEventListener('click', ()=>{
+      const total = track.children.length;
+      slideIndex = Math.min(total-1, slideIndex+1); updateCarousel();
+    });
+
+    closeDrawerBtn.addEventListener('click', ()=>drawer.classList.remove('open'));
+    drawer.addEventListener('click', (e)=>{ if(e.target===drawer) drawer.classList.remove('open') });
+
+    // ====== INIT ======
+    document.getElementById('year').textContent = new Date().getFullYear();
+    renderHighlights();
+    renderProducts();
+    PRODUCTS.sort((a, b) => {
+  if (a.brand === b.brand) {
+    return a.name.localeCompare(b.name);
+  }
+  return a.brand.localeCompare(b.brand);
+});
+  </script>
+</body>
+</html>
