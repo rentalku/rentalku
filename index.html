@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title> Rentalku — Rental Mobil Terjangkau & Terpercaya</title>
+  <title> Rentalku Amanah — Rental Mobil Terjangkau & Terpercaya</title>
 
   <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Montserrat:wght@600;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
@@ -210,7 +210,7 @@
       <div class="brand">
         <div class="brand-badge">SR</div>
         <div>
-          <div style="font-weight:800; font-size:18px">Rentalku</div>
+          <div style="font-weight:800; font-size:18px">Rentalku Amanah</div>
           <div style="font-size:12px; color:var(--muted)">Rental Mobil — Tangsel</div>
         </div>
       </div>
@@ -401,7 +401,7 @@
       <h2 class="h2">Tentang Kami</h2>
       <div class="sp-12"></div>
       <p class="muted" style="max-width:70ch">
-        Rentalku hadir sebagai partner perjalanan Anda di Tangerang Selatan dan sekitarnya.
+        Rentalku Amanah hadir sebagai partner perjalanan Anda di Tangerang Selatan dan sekitarnya.
         Kami mengutamakan kenyamanan, keamanan, dan kejujuran harga. Dengan armada MPV & SUV
         terbaru yang terawat, kami siap menemani perjalanan keluarga, bisnis, hingga dinas harian Anda.
       </p>
@@ -443,7 +443,7 @@
   <!-- Footer -->
   <footer>
     <div class="footer">
-      <div class="pill">© <span id="year"></span> Rentalku </div>
+      <div class="pill">© <span id="year"></span> Rentalku Amanah </div>
     </div>
   </footer>
 
@@ -497,7 +497,7 @@
           <div class="sp-12"></div>
           <div style="display:flex; gap:10px; flex-wrap:wrap">
             <button class="btn" onclick="openDetail('${p.id}')">Detail</button>
-            <a class="btn-primary btn" href="https://wa.me/6285792278420?text=Halo%20Rentalku%20,%20saya%20ingin%20booking%20${encodeURIComponent(p.name)}" target="_blank" rel="noopener">Booking Sekarang</a>
+            <a class="btn-primary btn" href="https://wa.me/6285792278420?text=Halo%20RentalkuAmanah%20,%20saya%20ingin%20booking%20${encodeURIComponent(p.name)}" target="_blank" rel="noopener">Booking Sekarang</a>
           </div>
         </div>
       </article>`;
@@ -577,7 +577,7 @@
       detailVariants.innerHTML = (p.variants||['Putih','Hitam']).map(v=>`<span class="pill">${v}</span>`).join('');
 
       // book link
-      detailBook.href = `https://wa.me/6285792278420?text=Halo%20Rentalku%20Rent,%20saya%20ingin%20booking%20${encodeURIComponent(p.name)}`;
+      detailBook.href = `https://wa.me/6285792278420?text=Halo%20Rentalku%20Amanah,%20saya%20ingin%20booking%20${encodeURIComponent(p.name)}`;
 
       // carousel
       const slides = (p.imgs && p.imgs.length ? p.imgs : [p.img]).map(src=>(
@@ -622,3 +622,4 @@
   </script>
 </body>
 </html>
+
